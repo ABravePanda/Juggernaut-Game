@@ -20,10 +20,10 @@ public class JoinEvent implements Listener {
 		//checks if the game is started or in progress
 		if(GameManager.gameStatus == GameProgress.INPROGRESS || GameManager.gameStatus == GameProgress.STARTING) {
 			//if so, add player as spectator
-			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), false, 0, true));
+			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), false, 0, 0, true));
 		} else {
 			//if not, add the player to the game and update lobby count
-			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), true, 30, false));
+			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), true, 30, 0, false));
 			Main.instance.playersInGame.add(p);
 			Main.instance.gameManager.lobbyWait(p);
 		}

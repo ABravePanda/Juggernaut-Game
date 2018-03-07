@@ -27,8 +27,6 @@ public class GameManager {
 		onlineCheck(online);
 		
 		
-		this.setGameStatus(GameProgress.LOBBY);
-		
 		
 	}
 	public boolean onlineCheck(int online) {
@@ -53,10 +51,10 @@ public class GameManager {
 					onlineCheck(Main.instance.playersInGame.size());
 					if(onlineCheck(Main.instance.playersInGame.size()) == true) {
 						lobbyCountdown = lobbyCountdown - 1;
-						Bukkit.getServer().broadcastMessage("§eThe game will start in §a" + lobbyCountdown + " §eseconds.");
+						Bukkit.getServer().broadcastMessage("§eThe game will start in §a" + (lobbyCountdown + 1) + " §eseconds.");
 						for(Player online : Bukkit.getOnlinePlayers()) {
 							online.playSound(online.getLocation(), Sound.BLOCK_NOTE_PLING, 2, 2);
-							online.setLevel(lobbyCountdown);
+							online.setLevel((lobbyCountdown + 1));
 						}
 					} else {
 						Bukkit.getServer().broadcastMessage("§c" + playersNeeded + "§e until game start.");
@@ -66,7 +64,7 @@ public class GameManager {
 					
 					
 				} else {
-					Bukkit.getServer().getScheduler().cancelTask(taskId);
+					Bukkit.getServer().getScheduler().cancelTask(taskId);	
 					Bukkit.getServer().broadcastMessage("§eGood luck! The game is starting!");
 					startGame();
 				}
@@ -77,6 +75,12 @@ public class GameManager {
 	
 	public void startGame() {
 		this.setGameStatus(GameProgress.INPROGRESS);
+		
+		for(Player onlinePlayers : Main.instance.playersInGame) {
+			PlayerManager pm = Main.playerManager.get(onlinePlayers);
+			pm.setLives(30);
+			ScoreboardsManager.scoreGame(onlinePlayers);
+		}
 	}
 	
 	public void setGameStatus(GameProgress type) {
