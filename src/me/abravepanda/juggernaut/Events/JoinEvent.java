@@ -9,6 +9,7 @@ import me.abravepanda.juggernaut.Main;
 import me.abravepanda.juggernaut.Managers.GameManager;
 import me.abravepanda.juggernaut.Managers.PlayerManager;
 import me.abravepanda.juggernaut.Utils.GameProgress;
+import me.abravepanda.juggernaut.Utils.Messages;
 
 public class JoinEvent implements Listener {
 	
@@ -20,10 +21,10 @@ public class JoinEvent implements Listener {
 		//checks if the game is started or in progress
 		if(GameManager.gameStatus == GameProgress.INPROGRESS || GameManager.gameStatus == GameProgress.STARTING) {
 			//if so, add player as spectator
-			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), false, 0, 0, true));
+			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), false, 0, 0, 0, true));
 		} else {
 			//if not, add the player to the game and update lobby count
-			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), true, 30, 0, false));
+			Main.playerManager.put(p, new PlayerManager(p.getUniqueId(), true, Messages.livesCount, 0, 0, false));
 			Main.instance.playersInGame.add(p);
 			Main.instance.gameManager.lobbyWait(p);
 		}

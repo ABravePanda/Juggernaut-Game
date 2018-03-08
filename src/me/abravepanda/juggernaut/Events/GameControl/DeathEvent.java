@@ -17,29 +17,33 @@ public class DeathEvent implements Listener {
 	@EventHandler
 	public void onDeath(PlayerDeathEvent e) {
 		Player p = e.getEntity();
+		Player killer = p.getKiller();
 		
 		if(Main.instance.gameManager.getGameStatus() == GameProgress.INPROGRESS || Main.instance.gameManager.getGameStatus() == GameProgress.STARTING) {
 			if(Main.instance.playersInGame.contains(p)) {
+				
 				PlayerManager pm = Main.playerManager.get(p);
 				pm.setLives(pm.getLives() - 1);
 				
-				Bukkit.broadcastMessage(ChatColor.RED + p.getName() + " has just died... They now have " + pm.getLives() + " lives.");
+				PlayerManager killerm = Main.playerManager.get(killer);
+				
+				if(killerm != null) {
+				killerm.setKills(killerm.getKills() + 1);
+				ScoreboardsManager.scoreGame(killer);
+				Bukkit.broadcastMessage(ChatColor.RED + p.getName() + " was killed by " + killer.getName() + ".");
+				}
+				
+				
+				
+				
+				//set players inv 
 				
 				if(pm.getLives() == 0) {
 					//end players game
 				} else {
 					//continue
 					
-					switch (pm.getLives()) {
 					
-					case 29:
-						break;
-					case 28:
-						break;
-					case 27:
-						break;
-					
-					}
 					
 				}
 				

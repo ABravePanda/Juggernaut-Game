@@ -7,22 +7,25 @@ import org.bukkit.scheduler.BukkitScheduler;
 
 import me.abravepanda.juggernaut.Main;
 import me.abravepanda.juggernaut.Utils.GameProgress;
+import me.abravepanda.juggernaut.Utils.Messages;
 import net.md_5.bungee.api.ChatColor;
 
 public class GameManager {
 	
 	public static GameProgress gameStatus;
-	public static int playersNeeded = 2;
+	public static int playersNeeded = Messages.playerQuota;
 	
 	public int taskId;
-	public int lobbyCountdown = 10;
+	public int lobbyCountdown = Messages.countdownTime;
 	
 	
 	public void lobbyWait(Player p) {
 		
 		int online = Bukkit.getOnlinePlayers().size();
+		
+		String joinMessage = Messages.joinMessage.replace("%player%", p.getName()).replace("%online%", Main.instance.playersInGame.size() + "").replace("%minimum%",GameManager.playersNeeded + "");
 	
-		Bukkit.getServer().broadcastMessage(ChatColor.GREEN + p.getName() + ChatColor.GRAY + " has joined the game." + ChatColor.GREEN + "" + ChatColor.BOLD + " (" + online + "/" + playersNeeded + ")");
+		Bukkit.getServer().broadcastMessage(joinMessage);
 	
 		onlineCheck(online);
 		
@@ -51,8 +54,17 @@ public class GameManager {
 					onlineCheck(Main.instance.playersInGame.size());
 					if(onlineCheck(Main.instance.playersInGame.size()) == true) {
 						lobbyCountdown = lobbyCountdown - 1;
-						Bukkit.getServer().broadcastMessage("§eThe game will start in §a" + (lobbyCountdown + 1) + " §eseconds.");
+						
+						String lobbyCountdownMsg = Messages.lobbyCountdownMessage.replace("%time%", (lobbyCountdown + 1) + "").replace("%online%", Main.instance.playersInGame.size() + "");
+						
+						Bukkit.getServer().broadcastMessage(lobbyCountdownMsg);
+						
 						for(Player online : Bukkit.getOnlinePlayers()) {
+							
+							String lobbyTitle = Messages.lobbyTitle.replace("%time%", (lobbyCountdown + 1) + "").replace("%player%", online.getName()).replace("%online%", Main.instance.playersInGame.size() + "");
+							String lobbySubTitle = Messages.lobbySubtitle.replace("%time%", (lobbyCountdown + 1) + "").replace("%player%", online.getName()).replace("%online%", Main.instance.playersInGame.size() + "");
+							
+							online.sendTitle(lobbyTitle, lobbySubTitle);
 							online.playSound(online.getLocation(), Sound.BLOCK_NOTE_PLING, 2, 2);
 							online.setLevel((lobbyCountdown + 1));
 						}
@@ -65,7 +77,13 @@ public class GameManager {
 					
 				} else {
 					Bukkit.getServer().getScheduler().cancelTask(taskId);	
-					Bukkit.getServer().broadcastMessage("§eGood luck! The game is starting!");
+					Bukkit.getServer().broadcastMessage(Messages.gameStartMessage);
+					
+					for(Player online : Bukkit.getOnlinePlayers()) {
+						online.sendTitle(Messages.gameStartTitle, Messages.gameStartSubtitle);
+						online.playSound(online.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 2, 1);
+						online.setLevel(0);
+					}
 					startGame();
 				}
 			}
@@ -80,6 +98,8 @@ public class GameManager {
 			PlayerManager pm = Main.playerManager.get(onlinePlayers);
 			pm.setLives(30);
 			ScoreboardsManager.scoreGame(onlinePlayers);
+			pm.setInGame(true);
+			onlinePlayers.sendMessage(pm.getTier() + " Tier");
 		}
 	}
 	

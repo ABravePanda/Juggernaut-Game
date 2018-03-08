@@ -1,0 +1,53 @@
+##################################
+# The Juggernaut Game
+# Coded for the Cross Community Games
+# Developed By A_Brave_Panda (https://www.spigotmc.org/resources/authors/a_brave_panda.89130/)
+# 
+# Welcome to the configuration file. Please be careful when editing each item as if you change it incorrectly
+# it could result in the plugin not working.
+# 
+# Any questions can be referred to the developers discord (https://discord.gg/T46Tzxm) or add him as (Panda#7032)
+#
+##################################
+# Lobby Configuration
+#
+# Countdown - How long the lobby countdown is (in seconds)
+Countdown: 10
+#
+# PlayerQuota - Minimum amount of players for the game to start
+PlayerQuota: 2
+#
+# JoinMessage - Message when player joins (%player% represents player, %online% represents player count, %minimum% represents minimum players)
+JoinMessage: '&8%player% has joined the game. &a(%online%/%minimum%)'
+#
+# LobbyTitle - The title used in the lobby countdown (%time% represents the countdown, %player% represents the player, %online% represents player count)
+LobbyTitle: '&6%time%'
+#
+# LobbySubtitle - The subtitle used in the lobby countdown (%time% represents the countdown, %player% represents the player, %online% represents player count)
+LobbySubtitle: '&a%online% People Online'
+#
+# LobbyCountdown - The message sent every second of the countdown (%time% represents the countdown, %online% represents player count)
+LobbyCountdown: '&eThe game will start in %time% seconds.'
+#
+# GameStart - The message sent when the game starts
+GameStart: '&eGood Luck!'
+#
+# GameStartTitle - The title sent when the game starts
+GameStartTitle: '&bThe Cross Community Games'
+#
+# GameStartSubtitle - the subtitle sent when the game starts
+GameStartSubtitle: '&cJuggernaut Game'
+#
+##################################
+# Game Configuration
+#
+# Lives - The amount of lives each player gets
+Lives: 30
+#
+# Tiers - The amount of times a player can be ranked up to get new gear
+Tiers: 6
+#
+# TierIncrement - The amount of deaths needed to proceed to the next tier
+TierIncrement: 5
+#
+##################################

@@ -8,11 +8,13 @@ public class PlayerManager {
 	private boolean inGame;
 	private int lives;
 	private int kills;
+	private int tier;
 	private boolean spectator;
 	
-	public PlayerManager(UUID uuid, boolean inGame, int lives, int kills, boolean spectator) {
+	public PlayerManager(UUID uuid, boolean inGame, int lives, int tier, int kills, boolean spectator) {
 		this.setUuid(uuid);
 		this.setLives(lives);
+		this.setTier(tier);
 		this.setKills(kills);
 		this.setInGame(inGame);
 		this.setSpectator(spectator);
@@ -57,6 +59,15 @@ public class PlayerManager {
 	public void setSpectator(boolean spectator) {
 		this.spectator = spectator;
 	}
+
+	public int getTier() {
+		return tier;
+	}
+
+	public void setTier(int tier) {
+		this.tier = tier;
+	}
+	
 	
 	
 }

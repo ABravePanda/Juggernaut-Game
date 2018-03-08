@@ -17,11 +17,14 @@ public class ScoreboardsManager {
 	public static Objective o;
 	public static Score livesCount;
 	public static Score killsCount;
+	public static Score tiersCount;
 	public static Score livesMsg;
 	public static Score killsMsg;
+	public static Score tiersMsg;
 	public static Score serverName;
 	public static Score blanktop;
 	public static Score blankmid;
+	public static Score blankbot;
 	
 	public static void scoreGame(Player p) {
 		
@@ -38,20 +41,21 @@ public class ScoreboardsManager {
 		blanktop = o.getScore(" ");
 		blanktop.setScore(5);
 		
-		livesMsg = o.getScore("§aLives");
+		livesMsg = o.getScore("§aLives:§6 " + Main.playerManager.get(p).getLives());
 		livesMsg.setScore(4);
 		
-		livesCount = o.getScore(Main.playerManager.get(p).getLives() + "");
-		livesCount.setScore(3);
-		
 		blankmid = o.getScore("  ");
-		blankmid.setScore(2);
+		blankmid.setScore(3);
 		
-		killsMsg = o.getScore("§aKills");
-		killsMsg.setScore(1);
+		tiersMsg = o.getScore("§aTier:§6 " + Main.playerManager.get(p).getTier());
+		tiersMsg.setScore(2);
 		
-		killsCount = o.getScore(Main.playerManager.get(p).getKills() + "");
-		killsCount.setScore(0);
+		blankbot = o.getScore("   ");
+		blankbot.setScore(1);
+		
+		killsMsg = o.getScore("§aKills:§6 " + Main.playerManager.get(p).getKills());
+		killsMsg.setScore(0);
+
 		
 		p.setScoreboard(b);
 		
