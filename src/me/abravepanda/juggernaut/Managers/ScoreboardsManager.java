@@ -9,12 +9,14 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 
 import me.abravepanda.juggernaut.Main;
+import me.abravepanda.juggernaut.Utils.Messages;
 
 public class ScoreboardsManager {
 	
 	public static ScoreboardManager m;
 	public static Scoreboard b;
 	public static Objective o;
+	public static Objective o1;
 	public static Score livesCount;
 	public static Score killsCount;
 	public static Score tiersCount;
@@ -31,6 +33,11 @@ public class ScoreboardsManager {
 		m = Bukkit.getScoreboardManager();
 		b = m.getNewScoreboard();
 		o = b.registerNewObjective("juggernaut", "");
+		
+		o1 = b.registerNewObjective("Tier", "");
+		o1.setDisplaySlot(DisplaySlot.BELOW_NAME);
+		
+		o1.getScore(Main.playerManager.get(p).getTier() + "").setScore(6);
 		
 		o.setDisplaySlot(DisplaySlot.SIDEBAR);
 		o.setDisplayName("§b§lCross Community Games");

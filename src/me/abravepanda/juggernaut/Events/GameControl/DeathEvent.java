@@ -10,6 +10,7 @@ import me.abravepanda.juggernaut.Main;
 import me.abravepanda.juggernaut.Managers.PlayerManager;
 import me.abravepanda.juggernaut.Managers.ScoreboardsManager;
 import me.abravepanda.juggernaut.Utils.GameProgress;
+import me.abravepanda.juggernaut.Utils.Messages;
 import net.md_5.bungee.api.ChatColor;
 
 public class DeathEvent implements Listener {
@@ -39,9 +40,19 @@ public class DeathEvent implements Listener {
 				//set players inv 
 				
 				if(pm.getLives() == 0) {
-					//end players game
+
+					Main.instance.playersInGame.remove(p);
+					pm.setSpectator(true);
+					
+					// TODO: setup the spectator
+					
 				} else {
-					//continue
+					
+					if(pm.getLives() % Messages.tiersIncrement == 0) {
+						p.sendMessage(ChatColor.GREEN + "Tier Upgraded!");
+						pm.setTier(pm.getTier() + 1);
+						ScoreboardsManager.scoreGame(p);
+					}
 					
 					
 					

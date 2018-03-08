@@ -14,6 +14,7 @@ import me.abravepanda.juggernaut.Command.KitsCommand;
 import me.abravepanda.juggernaut.Events.JoinEvent;
 import me.abravepanda.juggernaut.Events.LeaveEvent;
 import me.abravepanda.juggernaut.Events.GameControl.DeathEvent;
+import me.abravepanda.juggernaut.Events.GameControl.RespawnEvent;
 import me.abravepanda.juggernaut.Managers.GameManager;
 import me.abravepanda.juggernaut.Managers.PlayerManager;
 import me.abravepanda.juggernaut.Utils.Messages;
@@ -61,6 +62,7 @@ public class Main extends JavaPlugin {
 		this.getServer().getPluginManager().registerEvents(new JoinEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new LeaveEvent(), this);
 		this.getServer().getPluginManager().registerEvents(new DeathEvent(), this);
+		this.getServer().getPluginManager().registerEvents(new RespawnEvent(), this);
 	}
 	
 	public void registerCommands() {
@@ -99,11 +101,11 @@ public class Main extends JavaPlugin {
 		console.sendMessage(ChatColor.GREEN + "Config Checks for the Juggernaut Game");
 		console.sendMessage("");
 		console.sendMessage(ChatColor.GREEN + "Checking if Tiers are evenly divisible by Lives...");
-		if(Messages.livesCount % Messages.tiersIncrement == 0) {
+		if(Messages.livesCount % Messages.tiersIncrement == 0 && Messages.livesCount / Messages.tiersIncrement == Messages.tiersCount) {
 			console.sendMessage(ChatColor.DARK_GREEN + "Success!");
 			console.sendMessage(ChatColor.GOLD + "-----------------------------------");
 		} else {
-			console.sendMessage(ChatColor.DARK_RED + "Error: " + ChatColor.RED + Messages.livesCount + " is not evenly divisilbe by " + Messages.tiersIncrement + ".");
+			console.sendMessage(ChatColor.DARK_RED + "Error: " + ChatColor.RED + "Something wen't wrong with the tiers!");
 			console.sendMessage(" ");
 			console.sendMessage(ChatColor.RED + "Disabling Plugin...");
 			this.getServer().getPluginManager().disablePlugin(this);

@@ -16,6 +16,7 @@ public class GameManager {
 	public static int playersNeeded = Messages.playerQuota;
 	
 	public int taskId;
+	public int taskId2;
 	public int lobbyCountdown = Messages.countdownTime;
 	
 	
@@ -93,13 +94,11 @@ public class GameManager {
 	
 	public void startGame() {
 		this.setGameStatus(GameProgress.INPROGRESS);
-		
 		for(Player onlinePlayers : Main.instance.playersInGame) {
 			PlayerManager pm = Main.playerManager.get(onlinePlayers);
 			pm.setLives(30);
 			ScoreboardsManager.scoreGame(onlinePlayers);
 			pm.setInGame(true);
-			onlinePlayers.sendMessage(pm.getTier() + " Tier");
 		}
 	}
 	
