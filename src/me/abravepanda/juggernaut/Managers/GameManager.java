@@ -96,7 +96,7 @@ public class GameManager {
 		this.setGameStatus(GameProgress.INPROGRESS);
 		for(Player onlinePlayers : Main.instance.playersInGame) {
 			PlayerManager pm = Main.playerManager.get(onlinePlayers);
-			pm.setLives(30);
+			pm.setLives(Messages.livesCount);
 			ScoreboardsManager.scoreGame(onlinePlayers);
 			pm.setInGame(true);
 		}

@@ -1,10 +1,12 @@
 package me.abravepanda.juggernaut.Events.GameControl;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.scoreboard.DisplaySlot;
 
 import me.abravepanda.juggernaut.Main;
 import me.abravepanda.juggernaut.Managers.PlayerManager;
@@ -22,6 +24,8 @@ public class DeathEvent implements Listener {
 		
 		if(Main.instance.gameManager.getGameStatus() == GameProgress.INPROGRESS || Main.instance.gameManager.getGameStatus() == GameProgress.STARTING) {
 			if(Main.instance.playersInGame.contains(p)) {
+				
+				e.getDrops().clear();
 				
 				PlayerManager pm = Main.playerManager.get(p);
 				pm.setLives(pm.getLives() - 1);
@@ -44,7 +48,9 @@ public class DeathEvent implements Listener {
 					Main.instance.playersInGame.remove(p);
 					pm.setSpectator(true);
 					
-					// TODO: setup the spectator
+					p.setGameMode(GameMode.SPECTATOR);
+					p.setDisplayName(ChatColor.GRAY + p.getName());
+					p.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
 					
 				} else {
 					
